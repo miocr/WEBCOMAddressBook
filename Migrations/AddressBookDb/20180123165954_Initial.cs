@@ -27,7 +27,7 @@ namespace AddressBook.Migrations.AddressBookDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "ContactAddress",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -41,9 +41,9 @@ namespace AddressBook.Migrations.AddressBookDb
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_ContactAddress", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Address_ContactPerson_ContactPersonId",
+                        name: "FK_ContactAddress_ContactPerson_ContactPersonId",
                         column: x => x.ContactPersonId,
                         principalTable: "ContactPerson",
                         principalColumn: "Id",
@@ -51,15 +51,15 @@ namespace AddressBook.Migrations.AddressBookDb
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_ContactPersonId",
-                table: "Address",
+                name: "IX_ContactAddress_ContactPersonId",
+                table: "ContactAddress",
                 column: "ContactPersonId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "ContactAddress");
 
             migrationBuilder.DropTable(
                 name: "ContactPerson");

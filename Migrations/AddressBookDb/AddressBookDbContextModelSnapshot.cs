@@ -16,7 +16,7 @@ namespace AddressBook.Migrations.AddressBookDb
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2");
 
-            modelBuilder.Entity("AddressBook.Models.Address", b =>
+            modelBuilder.Entity("AddressBook.Models.ContactAddress", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -41,7 +41,7 @@ namespace AddressBook.Migrations.AddressBookDb
 
                     b.HasIndex("ContactPersonId");
 
-                    b.ToTable("Address");
+                    b.ToTable("ContactAddress");
                 });
 
             modelBuilder.Entity("AddressBook.Models.ContactPerson", b =>
@@ -72,7 +72,7 @@ namespace AddressBook.Migrations.AddressBookDb
                     b.ToTable("ContactPerson");
                 });
 
-            modelBuilder.Entity("AddressBook.Models.Address", b =>
+            modelBuilder.Entity("AddressBook.Models.ContactAddress", b =>
                 {
                     b.HasOne("AddressBook.Models.ContactPerson", "ContactPerson")
                         .WithMany()

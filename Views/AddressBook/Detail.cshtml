@@ -1,0 +1,102 @@
+﻿@model AddressBook.Models.ContactPerson
+
+@{
+    ViewData["Title"] = "AddressBook Detail";
+}
+
+<h2>@ViewData["Title"].</h2>
+<h3>@ViewData["Message"]</h3>
+
+
+<h2>Details</h2>
+<div>
+    <h4>Instructor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GenderType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GenderType)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+    </dl>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().AddressType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().Street)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().ZipCode)
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (ContactAddress address in Model.ContactAddresses)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => address.AddressType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => address.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => address.ZipCode)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+

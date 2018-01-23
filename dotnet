@@ -1,0 +1,1 @@
+y ef database drop --context AddressBookDbContext

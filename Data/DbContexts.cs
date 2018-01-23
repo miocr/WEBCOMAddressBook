@@ -26,8 +26,9 @@ namespace AddressBook.Data
 
     public class AddressBookDbContext : DbContext
     {
-        public static string AddressBookDbFileName;
-        public DbSet<ContactPerson> ContatPerson { get; set; }
+        public DbSet<ContactPerson> ContatPersons { get; set; }
+        public DbSet<ContactAddress> ContactAddresses { get; set;}
+
         public AddressBookDbContext(DbContextOptions<AddressBookDbContext> options)
             : base(options)
         {
@@ -35,7 +36,7 @@ namespace AddressBook.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ContactPerson>().ToTable("ContactPerson");
-            modelBuilder.Entity<Address>().ToTable("Address");
+            modelBuilder.Entity<ContactAddress>().ToTable("ContactAddress");
         }
 
     }

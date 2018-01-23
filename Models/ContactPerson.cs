@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+
 
 namespace AddressBook.Models
 {
@@ -12,7 +14,7 @@ namespace AddressBook.Models
             Male, 
             [Display(Name="Ženské")]
             Female
-        }
+        };
 
         [Key]
         public int Id {get; set;}
@@ -23,29 +25,35 @@ namespace AddressBook.Models
         public string Name {get; set;}
 
         [Required, MaxLength(50, ErrorMessage="50 znaků max")]
-        //[StringLength(50, ErrorMessage="Max 50 znaků"]
         [Display(Name="Příjmení")]
         public string Surname {get; set;}
 
-        [Display(Name = "Full Name")]
+        [Display(Name = "Celé jméno")]
         public string FullName
         {
             get { return Name + ", " + Surname; }
         }
 
-        [Required, EmailAddress]
+        [Display(Name = "Email")]
+        [Required]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Chybný formát")]
         public string Email {get;set;}
 
-
+        [Display(Name="Telefon")]
         [DataType(DataType.PhoneNumber, ErrorMessage="Chybný formát")]
         [MaxLength(12, ErrorMessage="Max 12 znaků")]
         public string Phone {get;set;}
 
+        [Display(Name="Datum narození")]
         [DataType(DataType.Date, ErrorMessage="Chybný formát (dd.mm.rrrr)")]
-        [DisplayFormat(DataFormatString="{0:dd.mm.yyyy}", ApplyFormatInEditMode=true)]
+        [DisplayFormat(DataFormatString="{0:dd.MM.yyyy}", ApplyFormatInEditMode=true)]
         public DateTime Birthdate {get; set;}
 
+        [Display(Name="Pohlaví")]
         public GenderEnum GenderType {get; set;}
+
+        [Display(Name="Adresy")]
+        public IEnumerable<ContactAddress> ContactAddresses {get; set;}
     }
 
 }
