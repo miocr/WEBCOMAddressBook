@@ -48,3 +48,14 @@ textarea {
         display: none;
     }
 }
+
+/*
+.tooltip-inner {
+    white-space: pre;
+    max-width: none;
+}
+*/
+
+.tooltip-inner {
+    white-space: pre-wrap;
+}

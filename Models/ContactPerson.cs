@@ -46,13 +46,13 @@ namespace AddressBook.Models
 
         [Display(Name="Datum narození")]
         [DataType(DataType.Date, ErrorMessage="Chybný formát (dd.mm.rrrr)")]
-        [DisplayFormat(DataFormatString="{0:dd.MM.yyyy}", ApplyFormatInEditMode=true)]
+        [DisplayFormat(DataFormatString="{0:dd.MM.yyyy}", ApplyFormatInEditMode=false)]
         public DateTime Birthdate {get; set;}
 
         [Display(Name="Pohlaví")]
         public GenderEnum GenderType {get; set;}
 
-        [Display(Name="Adresy")]
+        [Display(Name="Adresa")]
         public IEnumerable<ContactAddress> ContactAddresses {get; set;}
     }
 
