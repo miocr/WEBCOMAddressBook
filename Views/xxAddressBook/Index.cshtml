@@ -9,16 +9,12 @@
 
 <div>
 
-    <p>
-        <a asp-action="ContactCreate">Vytvořit nový</a>
-    </p>
-
     <form asp-action="Index" method="get">
         <div class="form-actions no-color">
             <p>
-                Hledání: 
-                <input data-toggle="tooltip" data-placement="right" 
-                       title="Zadejte část jména, celý email, nebo telefon (rozlišují se malá a velká písmena)" 
+                Hledání:
+                <input data-toggle="tooltip" data-placement="right"
+                       title="Zadejte část jména, celý email, nebo telefon (rozlišují se malá a velká písmena)"
                        type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
                 <input type="submit" value="Najdi" class="btn btn-default btn" />
                 &nbsp;
@@ -98,5 +94,9 @@
 
         </tbody>
     </table>
+
+    <p class="well-sm">
+        <a class="btn btn-success" asp-action="ContactCreate">Vytvořit nový</a>
+    </p>
 
 </div>

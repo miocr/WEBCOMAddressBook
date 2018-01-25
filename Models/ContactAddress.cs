@@ -29,7 +29,7 @@ namespace AddressBook.Models
         [Display(Name="Ulice")]
         public string Street {get;set;}
 
-        [Required, MaxLength(50, ErrorMessage = "Max 50 znaků")]
+        [MaxLength(50, ErrorMessage = "Max 50 znaků")]
         [Display(Name="Dodatek")]
         public string StreetAdd {get; set;}
 

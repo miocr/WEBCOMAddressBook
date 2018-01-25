@@ -3,11 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
-    <UserSecretsId>aspnet-AddressBook-B106C2FD-DE7F-4C95-BCB2-94E14E45BD16</UserSecretsId>
+    <UserSecretsId>netcore-AddressBook-B106C2FD-DE7F-4C95-BCB2-94E14E45BD16</UserSecretsId>
   </PropertyGroup>
   
   <ItemGroup>
     <None Update="AddressBook.db" CopyToOutputDirectory="PreserveNewest" />
+	<None Update="Application.db" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,6 +31,10 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.1" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Contact\" />
   </ItemGroup>
 
 </Project>

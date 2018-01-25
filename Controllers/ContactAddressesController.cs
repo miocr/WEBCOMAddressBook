@@ -18,11 +18,11 @@ namespace AddressBook.Controllers
 {
 
     //[Authorize]
-    public class AddressBookController : Controller
+    public class ContactAddressController : Controller
     {
         private readonly AddressBookDbContext _context;
 
-        public AddressBookController(AddressBookDbContext context)
+        public ContactAddressController(AddressBookDbContext context)
         {
             _context = context;
         }
@@ -65,6 +65,7 @@ namespace AddressBook.Controllers
             return View(contactPerson);
         }
 
+        [Authorize]
         public async Task<IActionResult> ContactEdit(int? id)
         {
             if (id == null)
@@ -88,9 +89,7 @@ namespace AddressBook.Controllers
         public async Task<IActionResult> ContactEditPost(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             ContactPerson contactPersonUpdated = await _context.ContatPersons
                     .SingleAsync(_cp => _cp.Id == id);
@@ -119,28 +118,45 @@ namespace AddressBook.Controllers
             return View(contactPersonUpdated);
         }
 
-        // GET: ContactCreate
-        public IActionResult ContactCreate()
+        public IActionResult AddressCreate(string contactId)
         {
-            return View();
+            ContactPerson contactPerson = _context.ContatPersons
+                 .Single(_cp => _cp.Id == Convert.ToInt32(contactId));
+
+            if (contactPerson == null)
+                return NotFound();
+
+            ContactViewModel contactViewModel = new ContactViewModel();
+            contactViewModel.ContactPerson = contactPerson;
+
+            return View(contactViewModel);
         }
 
-        // POST: ContactCreate
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ContactCreate(
-            [Bind("Name,Surname,Email,Phone,Birthdate,GenerType")]
-            ContactPerson newContactPerson)
+        public async Task<IActionResult> AddressCreate(
+            [Bind("ContactPerson,ContactAddress,ContactAddress.Street,ContactAddress.City,ContactAddress.ZipCode")]
+            ContactViewModel contactView)
         {
             try
             {
+                ContactPerson contactPerson = _context.ContatPersons
+                    .Single(_cp => _cp.Id == contactView.ContactPerson.Id);
+
+                if (contactPerson == null)
+                    return NotFound();
+
+                // Ignorujeme chybìjící povinné údaje pro ContactPerson
+                foreach (string key in ModelState.Keys)
+                    if (key.Contains("ContactPerson"))
+                        ModelState.Remove(key);
+
                 if (ModelState.IsValid)
                 {
-                    _context.Add(newContactPerson);
+                    contactView.ContactAddress.ContactPerson = contactPerson;
+                    _context.ContactAddresses.Add(contactView.ContactAddress);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ContactEdit","ContactPerson", new { contactPerson.Id });
                 }
             }
             catch (DbUpdateException /* ex */)
@@ -150,7 +166,7 @@ namespace AddressBook.Controllers
                     "Try again, and if the problem persists " +
                     "see your system administrator.");
             }
-            return View(newContactPerson);
+            return View(contactView);
         }
 
 

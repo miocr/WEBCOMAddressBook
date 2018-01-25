@@ -1,0 +1,76 @@
+﻿@model AddressBook.Models.AddressBookViewModels.ContactViewModel
+
+@{
+    ViewData["Title"] = "Nová adresa";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.ContactPerson.Name)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ContactPerson.Name)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.ContactPerson.Surname)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.ContactPerson.Surname)
+    </dd>
+</dl>
+
+<form asp-action="AddressCreate">
+    <div class="form-horizontal">
+        <h4>ContactPerson</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ContactPerson.Id" />
+        <div class="form-group">
+            <label asp-for="ContactAddress.Street" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactAddress.Street" class="form-control" />
+                <span asp-validation-for="ContactAddress.Street" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactAddress.City" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactAddress.City" class="form-control" />
+                <span asp-validation-for="ContactAddress.City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactAddress.ZipCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ContactAddress.ZipCode" class="form-control" />
+                <span asp-validation-for="ContactAddress.ZipCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactAddress.AddressType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ContactAddress.AddressType" class="form-control"
+                        asp-items="Html.GetEnumSelectList<ContactAddress.AddressTypeEnum>()">
+                    <option value="">-- Typ adresy --</option>
+                </select>
+                <span asp-validation-for="ContactAddress.AddressType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

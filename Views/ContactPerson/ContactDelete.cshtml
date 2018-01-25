@@ -1,0 +1,63 @@
+﻿@model AddressBook.Models.ContactPerson
+
+@{
+    ViewData["Title"] = "Smazání kontaktu"; 
+}
+
+<h3>@ViewData["Title"]</h3>
+
+
+<div>
+    <hr />
+
+    <h4>Opravdu chcete smazat tento záznam? Operaci nelze vrátit!</h4>
+
+    <p class="text-danger">@ViewData["ErrorMessage"]</p>
+
+    <dl class="dl-horizontal">
+        <input type="hidden" asp-for="Id" />
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Birthdate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Birthdate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GenderType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GenderType)
+        </dd>
+    </dl>
+
+    <form asp-action="ContactDelete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Smazat" class="btn btn-default" /> |
+            <a asp-action="Index">Zpět na seznam</a>
+        </div>
+    </form>
+</div>

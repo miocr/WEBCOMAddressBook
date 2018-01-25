@@ -84,6 +84,9 @@
                 <td>
                     @Html.DisplayFor(model => address.ZipCode)
                 </td>
+                <td>
+
+                </td>
             </tr>
             }
         </tbody>
@@ -92,7 +95,7 @@
 
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="ContactEdit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Zpět na seznam</a>
 </div>
 

@@ -1,0 +1,120 @@
+﻿@model AddressBook.Models.ContactPerson
+
+@{
+    ViewData["Title"] = "Editace kontaktu";
+}
+
+<h3>@ViewData["Title"]</h3>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="form-group">
+            <label asp-for="Name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Surname" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="GenderType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="GenderType" class="form-control"
+                        asp-items="Html.GetEnumSelectList<ContactPerson.GenderEnum>()">
+                    @*<option value="">-- Pohlaví --</option>*@
+                </select>
+                <span asp-validation-for="GenderType" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Email" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Phone" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Birthdate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Birthdate" class="form-control" />
+                <span asp-validation-for="Birthdate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Uložit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().AddressType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().Street)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().City)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactAddresses.First().ZipCode)
+                </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (ContactAddress address in Model.ContactAddresses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => address.AddressType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => address.Street)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => address.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => address.ZipCode)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="ContactAddress" asp-route-id="@address.Id">Edit</a> |
+                        <a asp-action="AddressDelete" asp-route-id="@address.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</form>
+
+<div>
+    <a asp-action="Index">Zpět na seznam</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+

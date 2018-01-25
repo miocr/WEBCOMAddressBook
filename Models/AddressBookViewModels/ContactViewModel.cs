@@ -10,6 +10,8 @@ namespace AddressBook.Models.AddressBookViewModels
     {
         public ContactPerson ContactPerson {get;set;}
 
+        public ContactAddress ContactAddress { get; set; }
+
         //public ICollection<CommunicationStatus> CommunicationStatuses { get; set; }
 
     }

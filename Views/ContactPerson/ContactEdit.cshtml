@@ -1,14 +1,16 @@
 ﻿@model AddressBook.Models.ContactPerson
 
 @{
-    ViewData["Title"] = "Editace kontaktu";
+    ViewData["Title"] = "Kontakt > Změna";
 }
 
-<h3>@ViewData["Title"]</h3>
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+<hr />
 
 <form asp-action="Edit">
     <div class="form-horizontal">
-        <hr />
+        <h4>Osobní údaje:</h4>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
         <div class="form-group">
@@ -24,11 +26,11 @@
                 <input asp-for="Surname" class="form-control" />
                 <span asp-validation-for="Surname" class="text-danger"></span>
             </div>
-        </div>
+        </div>i
         <div class="form-group">
             <label asp-for="GenderType" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="GenderType" class="form-control" 
+                <select asp-for="GenderType" class="form-control"
                         asp-items="Html.GetEnumSelectList<ContactPerson.GenderEnum>()">
                     @*<option value="">-- Pohlaví --</option>*@
                 </select>
@@ -56,13 +58,74 @@
                 <span asp-validation-for="Birthdate" class="text-danger"></span>
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Uložit" class="btn btn-default" />
             </div>
         </div>
+
     </div>
+
 </form>
+
+<hr />
+
+<h4>Adresy:</h4>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactAddresses.First().AddressType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactAddresses.First().Street)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactAddresses.First().City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactAddresses.First().ZipCode)
+            </th>
+            <th>
+                Operace
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (ContactAddress address in Model.ContactAddresses)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => address.AddressType)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => address.Street)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => address.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => address.ZipCode)
+                </td>
+                <td>
+                    <a asp-action="AddressEdit" asp-route-id="@address.Id">Změnit</a> |
+                    <a asp-action="AddressDelete" asp-route-id="@address.Id">Smazat</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<p class="well-sm">
+    <a class="btn btn-default" asp-route-contactId="@Model.Id" asp-controller="ContactAddress" asp-action="AddressCreate">Přidat</a>
+</p>
+
+
+
+
 
 <div>
     <a asp-action="Index">Zpět na seznam</a>
