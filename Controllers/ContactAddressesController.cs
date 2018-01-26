@@ -1,18 +1,13 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using AddressBook.Data;
 using AddressBook.Models;
 using AddressBook.Models.AddressBookViewModels;
-using AddressBook.Services;
 
 namespace AddressBook.Controllers
 {
@@ -116,57 +111,6 @@ namespace AddressBook.Controllers
             }
 
             return View(contactPersonUpdated);
-        }
-
-        public IActionResult AddressCreate(string contactId)
-        {
-            ContactPerson contactPerson = _context.ContatPersons
-                 .Single(_cp => _cp.Id == Convert.ToInt32(contactId));
-
-            if (contactPerson == null)
-                return NotFound();
-
-            ContactViewModel contactViewModel = new ContactViewModel();
-            contactViewModel.ContactPerson = contactPerson;
-
-            return View(contactViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddressCreate(
-            [Bind("ContactPerson,ContactAddress,ContactAddress.Street,ContactAddress.City,ContactAddress.ZipCode")]
-            ContactViewModel contactView)
-        {
-            try
-            {
-                ContactPerson contactPerson = _context.ContatPersons
-                    .Single(_cp => _cp.Id == contactView.ContactPerson.Id);
-
-                if (contactPerson == null)
-                    return NotFound();
-
-                // Ignorujeme chybìjící povinné údaje pro ContactPerson
-                foreach (string key in ModelState.Keys)
-                    if (key.Contains("ContactPerson"))
-                        ModelState.Remove(key);
-
-                if (ModelState.IsValid)
-                {
-                    contactView.ContactAddress.ContactPerson = contactPerson;
-                    _context.ContactAddresses.Add(contactView.ContactAddress);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("ContactEdit","ContactPerson", new { contactPerson.Id });
-                }
-            }
-            catch (DbUpdateException /* ex */)
-            {
-                //Log the error (uncomment ex variable name and write a log.
-                ModelState.AddModelError("", "Unable to save changes. " +
-                    "Try again, and if the problem persists " +
-                    "see your system administrator.");
-            }
-            return View(contactView);
         }
 
 

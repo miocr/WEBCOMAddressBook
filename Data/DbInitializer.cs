@@ -1,23 +1,44 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using AddressBook.Models;
 using AddressBook.Models.AddressBookViewModels;
+using AddressBook.Migrations;
 
 namespace AddressBook.Data
 {
-    public static class DbInitializer
+    public static class SampleData
     {
+
+        public static void Initialize(ApplicationDbContext context)
+        {
+            context.Database.EnsureCreated();
+
+            if (context.Users.Any())
+                return;
+
+            ApplicationUser demoUser = new ApplicationUser();
+            demoUser.UserName = "demo@demo.org";
+            demoUser.Email = "demo@demo.org";
+            demoUser.NormalizedEmail = "DEMO@DEMO.ORG";
+            demoUser.NormalizedUserName = "DEMO@DEMO.ORG";
+            // Password: "Abcd.1234"
+            demoUser.PasswordHash = "AQAAAAEAACcQAAAAENMGma+TO897piNW7acxeJj2Ndh81ruUODAJpJGAv+PtTwIVP6+e9Nfwv5AOJDmizQ==";
+            demoUser.LockoutEnabled = true;
+            demoUser.SecurityStamp = "4146b593-d287-4182-a282-441277aadec1";
+
+            context.Users.Add(demoUser);
+            context.SaveChanges();
+        }
+
         public static void Initialize(AddressBookDbContext context)
         {
             context.Database.EnsureCreated();
 
-            // Look for any contact.
             if (context.ContatPersons.Any())
-            {
-                return;   // DB has been seeded
-            }
+                return;
 
             var contactPersons = new ContactPerson[]
             {
@@ -42,17 +63,17 @@ namespace AddressBook.Data
 
             var addresses = new ContactAddress[]
             {
-                new ContactAddress { Street = "Fakturační 1", City = "Novákovice",
-                    ZipCode = "111 00", AddressType = ContactAddress.AddressTypeEnum.Invoice,
+                new ContactAddress { Street = "Hlavní ulice 2", City = "Novákovice",
+                    ZipCode = "111 00", AddressType = ContactAddress.AddressTypeEnum.Default,
                     ContactPerson = contactPersons[0]},
-                new ContactAddress { Street = "Dodací 2", City = "Karlovice",
+                new ContactAddress { Street = "Dodací naměstí 8", City = "Karlovice",
                     ZipCode = "666 00", AddressType = ContactAddress.AddressTypeEnum.Delivery,
                     ContactPerson = contactPersons[0]},
-                new ContactAddress { Street = "Korespondenční 3", City = "Dopisovice",
+                new ContactAddress { Street = "Korespondenční 16", City = "Dopisovice",
                     ZipCode = "777 00", AddressType = ContactAddress.AddressTypeEnum.Correspondence,
                     ContactPerson = contactPersons[0]},
-                new ContactAddress { Street = "Fakturační 1", City = "Janovice",
-                    ZipCode = "555 00", AddressType = ContactAddress.AddressTypeEnum.Invoice,
+                new ContactAddress { Street = "Hlavní ulice 10", City = "Janovice",
+                    ZipCode = "555 00", AddressType = ContactAddress.AddressTypeEnum.Default,
                     ContactPerson = contactPersons[1]},
             };
 

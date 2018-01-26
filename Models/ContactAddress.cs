@@ -9,8 +9,8 @@ namespace AddressBook.Models
     {
         public enum AddressTypeEnum
         {
-            [Display(Name="Fakturační")]
-            Invoice,
+            [Display(Name="Hlavní")]
+            Default,
             [Display(Name="Dodací")]
             Delivery,
             [Display(Name="Korespondenční")]
@@ -39,8 +39,7 @@ namespace AddressBook.Models
 
         [Required]
         [Display(Name="PSČ")]
-        [MinLength(6, ErrorMessage="PSČ ve formátu '123 45'")]
-        [MaxLength(6, ErrorMessage="PSČ ve formátu '123 45'")]
+        [StringLength(6, ErrorMessage="PSČ ve formátu '123 45'")]
         [DataType(DataType.PostalCode)]
         public string ZipCode   {get;set;}
 

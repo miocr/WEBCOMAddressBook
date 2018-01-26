@@ -1,0 +1,69 @@
+﻿@model AddressBook.Models.ContactAddress
+
+@{
+    ViewData["Title"] = "Kontakt > Adresa > Změna";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+<hr />
+
+<form asp-action="AddressEdit">
+    <div class="form-horizontal">
+        
+        <div>
+            @Html.ActionLink("Zpět na editaci kotaktu", "ContactEdit", "AddressBook",
+           new { id = Model.ContactPerson.Id }, new { @class = "btn btn-default" })
+        </div>
+
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ContactPerson.Id" />
+        <div class="form-group">
+            <label asp-for="AddressType" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="AddressType" class="form-control"
+                        asp-items="Html.GetEnumSelectList<ContactAddress.AddressTypeEnum>()"></select>
+                <span asp-validation-for="AddressType" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Street" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Street" class="form-control" />
+                <span asp-validation-for="Street" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="StreetAdd" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="StreetAdd" class="form-control" />
+                <span asp-validation-for="StreetAdd" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="City" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ZipCode" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ZipCode" class="form-control" />
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

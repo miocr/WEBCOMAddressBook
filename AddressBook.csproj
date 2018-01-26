@@ -5,6 +5,34 @@
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
     <UserSecretsId>netcore-AddressBook-B106C2FD-DE7F-4C95-BCB2-94E14E45BD16</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\ContactAddresses\**" />
+    <Compile Remove="Views\ContactAddress\**" />
+    <Compile Remove="Views\ContactPerson\**" />
+    <Compile Remove="Views\xxAddressBook\**" />
+    <Content Remove="Views\ContactAddresses\**" />
+    <Content Remove="Views\ContactAddress\**" />
+    <Content Remove="Views\ContactPerson\**" />
+    <Content Remove="Views\xxAddressBook\**" />
+    <EmbeddedResource Remove="Views\ContactAddresses\**" />
+    <EmbeddedResource Remove="Views\ContactAddress\**" />
+    <EmbeddedResource Remove="Views\ContactPerson\**" />
+    <EmbeddedResource Remove="Views\xxAddressBook\**" />
+    <None Remove="Views\ContactAddresses\**" />
+    <None Remove="Views\ContactAddress\**" />
+    <None Remove="Views\ContactPerson\**" />
+    <None Remove="Views\xxAddressBook\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\ContactAddressesController.cs" />
+    <Compile Remove="Controllers\xxAddressBookController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\InitEF.sh" />
+  </ItemGroup>
   
   <ItemGroup>
     <None Update="AddressBook.db" CopyToOutputDirectory="PreserveNewest" />
@@ -34,7 +62,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Contact\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>

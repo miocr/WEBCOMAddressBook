@@ -1,15 +1,21 @@
 ﻿@model AddressBook.Models.ContactPerson
 
 @{
-    ViewData["Title"] = "AddressBook Detail";
+    ViewData["Title"] = "Kontakt > Detail";
 }
 
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
 <div>
-    <h4>Contact</h4>
-    <hr />
+    <a class="btn btn-default" asp-action="Index">Zpět na seznam</a> |
+    <a class="btn btn-default" asp-action="ContactEdit" asp-route-id="@Model.Id">Změnit</a>
+</div>
+
+<hr />
+
+<div>
+    <h4>Osobní údaje:</h4>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -49,7 +55,8 @@
         </dd>
     </dl>
 
-    <table class="table">
+    <h4>Adresy:</h4>
+    <table class="table table-responsive">
         <thead>
             <tr>
                 <th>
@@ -71,32 +78,26 @@
         <tbody>
             @foreach (ContactAddress address in Model.ContactAddresses)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(model => address.AddressType)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => address.Street)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => address.City)
-                </td>
-                <td>
-                    @Html.DisplayFor(model => address.ZipCode)
-                </td>
-                <td>
-
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => address.AddressType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => address.Street)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => address.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => address.ZipCode)
+                    </td>
+                    <td></td>
+                </tr>
             }
         </tbody>
     </table>
 
 
-</div>
-<div>
-    <a asp-action="ContactEdit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Zpět na seznam</a>
 </div>
 
 

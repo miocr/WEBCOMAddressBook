@@ -10,7 +10,7 @@
 <div>
     <hr />
 
-    <h4>Opravdu chcete smazat tento záznam? Operaci nelze vrátit!</h4>
+    <div class="text-danger">Opravdu chcete smazat tento záznam ? Operaci nelze vrátit !</div>
 
     <p class="text-danger">@ViewData["ErrorMessage"]</p>
 
@@ -56,8 +56,8 @@
 
     <form asp-action="ContactDelete">
         <div class="form-actions no-color">
-            <input type="submit" value="Smazat" class="btn btn-default" /> |
-            <a asp-action="Index">Zpět na seznam</a>
+            <a class="btn btn-default" asp-action="Index">Zpět na seznam</a> | 
+            <input type="submit" value="Smazat" class="btn btn-default" />
         </div>
     </form>
 </div>
