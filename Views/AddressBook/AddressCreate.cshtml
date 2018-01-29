@@ -6,15 +6,12 @@
 
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
-
+<hr />
 
 <div>
     @Html.ActionLink("Zpět na editaci kotaktu", "ContactEdit", "AddressBook", new { id = Model.ContactPerson.Id }, new { @class
     = "btn btn-default" })
 </div>
-
-<hr />
-
 
 <dl class="dl-horizontal">
     <dt>
