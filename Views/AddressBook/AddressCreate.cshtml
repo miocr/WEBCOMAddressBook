@@ -1,15 +1,16 @@
 ﻿@model AddressBook.Models.AddressBookViewModels.ContactViewModel
 
-@{
-    ViewData["Title"] = "Nová adresa";
+@{ 
+    ViewData["Title"] = "Kontakt > Adresa > Nová"; 
 }
 
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
 
-<div class="btn btn-default">
-    <a asp-action="Index">Zpět na seznam</a>
+<div>
+    @Html.ActionLink("Zpět na editaci kotaktu", "ContactEdit", "AddressBook", new { id = Model.ContactPerson.Id }, new { @class
+    = "btn btn-default" })
 </div>
 
 <hr />
@@ -60,8 +61,7 @@
         <div class="form-group">
             <label asp-for="ContactAddress.AddressType" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <select asp-for="ContactAddress.AddressType" class="form-control"
-                        asp-items="Html.GetEnumSelectList<ContactAddress.AddressTypeEnum>()">
+                <select asp-for="ContactAddress.AddressType" class="form-control" asp-items="Html.GetEnumSelectList<ContactAddress.AddressTypeEnum>()">
                     <option value="">-- Typ adresy --</option>
                 </select>
                 <span asp-validation-for="ContactAddress.AddressType" class="text-danger"></span>
@@ -76,6 +76,4 @@
 </form>
 
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");} }

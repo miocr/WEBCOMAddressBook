@@ -1,13 +1,13 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using AddressBook.Data;
 using AddressBook.Models;
 using AddressBook.Models.AddressBookViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AddressBook.Controllers
 {
@@ -39,9 +39,9 @@ namespace AddressBook.Controllers
             {
                 ViewBag.searchString = searchString;
                 query = query.Where(_cp =>
-                    _cp.Name.Contains(searchString) ||
-                    _cp.Surname.Contains(searchString) ||
-                    _cp.Phone == searchString || _cp.Phone == searchString);
+                   _cp.Name.Contains(searchString) ||
+                   _cp.Surname.Contains(searchString) ||
+                   _cp.Phone == searchString || _cp.Phone == searchString);
             }
 
             IEnumerable<ContactPerson> contactPersons = await query.ToListAsync();
@@ -68,8 +68,8 @@ namespace AddressBook.Controllers
                 return NotFound();
 
             ContactPerson contactPerson = await _context.ContatPersons
-               .Include(_cp => _cp.ContactAddresses)
-               .SingleAsync(_cp => _cp.Id == id);
+                .Include(_cp => _cp.ContactAddresses)
+                .SingleAsync(_cp => _cp.Id == id);
 
             if (contactPerson == null)
                 return NotFound();
@@ -86,13 +86,13 @@ namespace AddressBook.Controllers
                 return NotFound();
 
             ContactPerson contactPersonUpdated = await _context.ContatPersons
-                    .SingleAsync(_cp => _cp.Id == id);
+                .SingleAsync(_cp => _cp.Id == id);
 
             if (await TryUpdateModelAsync<ContactPerson>(
-                contactPersonUpdated, "",
-                _cp => _cp.Name, _cp => _cp.Surname,
-                _cp => _cp.Email, _cp => _cp.Phone,
-                _cp => _cp.GenderType, _cp => _cp.Birthdate
+                    contactPersonUpdated, "",
+                    _cp => _cp.Name, _cp => _cp.Surname,
+                    _cp => _cp.Email, _cp => _cp.Phone,
+                    _cp => _cp.GenderType, _cp => _cp.Birthdate
                 ))
             {
                 try
@@ -100,7 +100,7 @@ namespace AddressBook.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction("ContactEdit");
                 }
-                catch (DbUpdateException /* ex */)
+                catch (DbUpdateException /* ex */ )
                 {
                     //Log the error (uncomment ex variable name and write a log.)
                     ModelState.AddModelError("", "Unable to save changes. " +
@@ -121,12 +121,11 @@ namespace AddressBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ContactCreate(
-            [Bind("ContactPerson," +
-            "ContactPerson.Name,ContactPerson.Surname,ContactPerson.Email," +
-            "ContactPerson.Phone,ContactPerson.Birthdate,ContactPerson.GenerType," +
-            "ContactAddress," +
-            "ContactAddress.Street,ContactAddress.City,ContactAddress.ZipCode")]
-            ContactViewModel newContact)
+            [Bind ("ContactPerson," +
+                "ContactPerson.Name,ContactPerson.Surname,ContactPerson.Email," +
+                "ContactPerson.Phone,ContactPerson.Birthdate,ContactPerson.GenerType," +
+                "ContactAddress," +
+                "ContactAddress.Street,ContactAddress.City,ContactAddress.ZipCode")] ContactViewModel newContact)
         {
             try
             {
@@ -139,7 +138,7 @@ namespace AddressBook.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException /* ex */ )
             {
                 //Log the error (uncomment ex variable name and write a log.
                 ModelState.AddModelError("", "Unable to save changes. " +
@@ -198,13 +197,12 @@ namespace AddressBook.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException /* ex */ )
             {
                 //Log the error (uncomment ex variable name and write a log.)
                 return RedirectToAction("ContactDelete", new { id = id, saveChangesError = true });
             }
         }
-
 
         #endregion
 
@@ -213,7 +211,7 @@ namespace AddressBook.Controllers
         public IActionResult AddressCreate(string contactId)
         {
             ContactPerson contactPerson = _context.ContatPersons
-                 .Single(_cp => _cp.Id == Convert.ToInt32(contactId));
+                .Single(_cp => _cp.Id == Convert.ToInt32(contactId));
 
             if (contactPerson == null)
                 return NotFound();
@@ -228,8 +226,7 @@ namespace AddressBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddressCreate(
-            [Bind("ContactPerson,ContactAddress,ContactAddress.Street,ContactAddress.City,ContactAddress.ZipCode")]
-            ContactViewModel contactView)
+            [Bind("ContactPerson,ContactAddress,ContactAddress.Street,ContactAddress.StreetAdd,AddressTypeEnum.ContactAddress.City,ContactAddress.ZipCode")] ContactViewModel contactView)
         {
             try
             {
@@ -239,7 +236,7 @@ namespace AddressBook.Controllers
                 if (contactPerson == null)
                     return NotFound();
 
-                // Ignorujeme chyb�j�c� povinn� �daje pro ContactPerson
+                // Ignorujeme chybějící povinné údaje pro ContactPerson
                 foreach (string key in ModelState.Keys)
                     if (key.Contains("ContactPerson"))
                         ModelState.Remove(key);
@@ -252,7 +249,7 @@ namespace AddressBook.Controllers
                     return RedirectToAction("ContactEdit", new { contactPerson.Id });
                 }
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException /* ex */ )
             {
                 //Log the error (uncomment ex variable name and write a log.
                 ModelState.AddModelError("", "Unable to save changes. " +
@@ -263,7 +260,7 @@ namespace AddressBook.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddressDelete (int? id, bool? saveChangesError = false)
+        public async Task<IActionResult> AddressDelete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
                 return NotFound();
@@ -281,7 +278,7 @@ namespace AddressBook.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("ContactEdit", new { contactAddress.ContactPerson.Id });
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException /* ex */ )
             {
                 //Log the error (uncomment ex variable name and write a log.)
                 return RedirectToAction("ContactEdit", new { contactAddress.ContactPerson.Id, saveChangesError = true });
@@ -295,8 +292,8 @@ namespace AddressBook.Controllers
                 return NotFound();
 
             ContactAddress contactAddress = await _context.ContactAddresses
-               .Include(ca => ca.ContactPerson)
-               .SingleAsync(ca => ca.Id == id);
+                .Include(ca => ca.ContactPerson)
+                .SingleAsync(ca => ca.Id == id);
 
             if (contactAddress == null)
                 return NotFound();
@@ -317,18 +314,19 @@ namespace AddressBook.Controllers
                 .SingleAsync(ca => ca.Id == id);
 
             if (await TryUpdateModelAsync<ContactAddress>(
-                contactAddressUpdated, "",
-                ca => ca.AddressType, ca => ca.Street, ca => ca.City, ca => ca.ZipCode
+                    contactAddressUpdated, "",
+                    ca => ca.AddressType, ca => ca.Street, ca => ca.StreetAdd,
+                    ca => ca.City, ca => ca.ZipCode
                 ))
             {
                 try
                 {
                     await _context.SaveChangesAsync();
-                    return RedirectToAction("ContactEdit", 
+                    return RedirectToAction("ContactEdit",
                         new { contactAddressUpdated.ContactPerson.Id, saveChangesError = true });
-                    
+
                 }
-                catch (DbUpdateException /* ex */)
+                catch (DbUpdateException /* ex */ )
                 {
                     //Log the error (uncomment ex variable name and write a log.)
                     ModelState.AddModelError("", "Unable to save changes. " +
@@ -339,7 +337,6 @@ namespace AddressBook.Controllers
 
             return View(contactAddressUpdated);
         }
-
 
         #endregion
 
