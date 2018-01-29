@@ -22,10 +22,12 @@ namespace AddressBook.Models
 
         public ContactPerson ContactPerson {get; set;}
 
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
         [Display(Name="Typ adresy")]
         public AddressTypeEnum AddressType {get; set;}
 
-        [Required, MaxLength(100, ErrorMessage = "Max 100 znaků")]
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
+        [MaxLength(100, ErrorMessage = "100 znaků maximálně")]
         [Display(Name="Ulice")]
         public string Street {get;set;}
 
@@ -33,13 +35,15 @@ namespace AddressBook.Models
         [Display(Name="Dodatek")]
         public string StreetAdd {get; set;}
 
-        [Required, MaxLength(100, ErrorMessage = "Max 100 znaků")]
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
+        [MaxLength(100, ErrorMessage = "100 znaků maximálně")]
         [Display(Name = "Město")]
         public string City {get;set;}
 
-        [Required]
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
+        [MinLength(6, ErrorMessage = "PSČ ve formátu '123 45'")]
+        [MaxLength(6, ErrorMessage = "PSČ ve formátu '123 45'")]
         [Display(Name="PSČ")]
-        [StringLength(6, ErrorMessage="PSČ ve formátu '123 45'")]
         [DataType(DataType.PostalCode)]
         public string ZipCode   {get;set;}
 

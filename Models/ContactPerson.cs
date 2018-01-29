@@ -24,12 +24,13 @@ namespace AddressBook.Models
         [Key]
         public int Id { get; set; }
 
-        [Required, MaxLength(50)]
-        [StringLength(50, ErrorMessage = "Max 50 znaků")]
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
+        [MaxLength(50, ErrorMessage = "50 znaků maximálně")]
         [Display(Name = "Jméno")]
         public string Name { get; set; }
 
-        [Required, MaxLength(50, ErrorMessage = "50 znaků max")]
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
+        [MaxLength(50, ErrorMessage = "50 znaků maximálně")]
         [Display(Name = "Příjmení")]
         public string Surname { get; set; }
 
@@ -39,8 +40,8 @@ namespace AddressBook.Models
             get { return Name + ", " + Surname; }
         }
 
+        [Required(ErrorMessage = "Tato hodnota musí být zadaná")]
         [Display(Name = "Email")]
-        [Required]
         [DataType(DataType.EmailAddress, ErrorMessage = "Chybný formát")]
         public string Email { get; set; }
 
@@ -57,7 +58,7 @@ namespace AddressBook.Models
         [Display(Name = "Pohlaví")]
         public GenderEnum GenderType { get; set; }
 
-        [Display(Name = "Adresa")]
+        [Display(Name = "Adresy")]
         public IEnumerable<ContactAddress> ContactAddresses { get; set; }
     }
 

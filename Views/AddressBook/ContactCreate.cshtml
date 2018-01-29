@@ -1,11 +1,17 @@
 ﻿@model AddressBook.Models.AddressBookViewModels.ContactViewModel
 
 @{
-    ViewData["Title"] = "Nový kotakt";
+    ViewData["Title"] = "Kotakt > Nový";
 }
 
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
+
+<div class="btn btn-default">
+    <a asp-action="Index">Zpět na seznam</a>
+</div>
+
+<hr />
 
 <form asp-action="ContactCreate">
     <div class="form-horizontal">
@@ -83,19 +89,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Vytvořit" class="btn btn-default" />
             </div>
         </div>
 
 
     </div>
 
-
 </form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

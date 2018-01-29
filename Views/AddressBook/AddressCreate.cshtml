@@ -8,6 +8,13 @@
 <h3>@ViewData["Message"]</h3>
 
 
+<div class="btn btn-default">
+    <a asp-action="Index">Zpět na seznam</a>
+</div>
+
+<hr />
+
+
 <dl class="dl-horizontal">
     <dt>
         @Html.DisplayNameFor(model => model.ContactPerson.Name)
@@ -68,9 +75,6 @@
     </div>
 </form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
